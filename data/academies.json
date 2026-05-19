@@ -1,0 +1,88 @@
+[
+  {
+    "id": "master-grade",
+    "name": "MasterGrade Sports Academy",
+    "lat": 17.4947,
+    "lng": 78.394,
+    "sport": "Football",
+    "students": 45,
+    "rating": 1,
+    "city": "Hyderabad, TG",
+    "area": "Kukatpally",
+    "founded": "2024",
+    "coach": "Lucky Rao",
+    "phone": "+91 98765 43210",
+    "status": "active",
+    "badge": "founding",
+    "createdAt": "2025-01-15T00:00:00Z",
+    "matchesPlayed": 32,
+    "trophies": 2,
+    "winRate": 68,
+    "topRank": "District Semifinalist",
+    "starPlayers": [
+      { "name": "Rohit Sharma K", "achievement": "State U-16 Selection", "sport": "Football", "level": "state" },
+      { "name": "Aditya Varma", "achievement": "District MVP 2025", "sport": "Football", "level": "district" }
+    ],
+    "teams": [
+      { "name": "MG Thunderbolts", "sport": "Football", "division": "U-14", "wins": 12, "losses": 3 },
+      { "name": "MG Strikers FC", "sport": "Football", "division": "U-17", "wins": 8, "losses": 5 }
+    ]
+  },
+  {
+    "id": "bhuwans-cricket",
+    "name": "Bhuwan's Cricket Academy",
+    "lat": "17.487647",
+    "lng": "78.532688",
+    "sport": "Cricket",
+    "students": 60,
+    "rating": 1,
+    "city": "Hyderabad, TG",
+    "area": "Bhairani Colony",
+    "founded": "2000",
+    "coach": "Bhuwan Singh",
+    "phone": "+91 87654 32109",
+    "status": "active",
+    "badge": "founding",
+    "createdAt": "2025-02-01T00:00:00Z",
+    "matchesPlayed": 78,
+    "trophies": 5,
+    "winRate": 72,
+    "topRank": "State U-14 Runners-Up",
+    "starPlayers": [
+      { "name": "Arjun Reddy", "achievement": "State U-14 Squad", "sport": "Cricket", "level": "state" },
+      { "name": "Prateek Yadav", "achievement": "National Camp Invitee", "sport": "Cricket", "level": "national" },
+      { "name": "Karthik Nair", "achievement": "District Best Bowler", "sport": "Cricket", "level": "district" }
+    ],
+    "teams": [
+      { "name": "BCA Lions XI", "sport": "Cricket", "division": "U-14", "wins": 18, "losses": 6 },
+      { "name": "BCA Warriors", "sport": "Cricket", "division": "U-17", "wins": 14, "losses": 8 }
+    ]
+  },
+  {
+    "id": "elite-cricket-hub-mp9qrwdr",
+    "name": "Elite Cricket Hub",
+    "lat": 17.46,
+    "lng": 78.35,
+    "sport": "Cricket",
+    "students": 80,
+    "rating": 2,
+    "city": "Hyderabad, TG",
+    "area": "Miyapur",
+    "founded": "2026",
+    "coach": "Venkat Rao",
+    "phone": "",
+    "status": "active",
+    "badge": "founding",
+    "createdAt": "2026-05-17T12:18:55.792Z",
+    "matchesPlayed": 24,
+    "trophies": 1,
+    "winRate": 58,
+    "topRank": "City League Finalists",
+    "starPlayers": [
+      { "name": "Sai Kiran", "achievement": "State U-16 Trials Cleared", "sport": "Cricket", "level": "state" }
+    ],
+    "teams": [
+      { "name": "ECH Titans XI", "sport": "Cricket", "division": "U-14", "wins": 10, "losses": 7 }
+    ]
+  }
+]
