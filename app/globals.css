@@ -403,21 +403,35 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   .nav-cta{padding:5px 12px;font-size:12px}
 
   /* Hero layout - Immersive Map on Mobile */
-  .hero{height:100svh;min-height:600px;display:block;padding-top:0}
-  .map-wrap,.scanline-overlay,.vignette{position:absolute;inset:0;height:100%;bottom:0}
+  .hero{height:auto;min-height:auto;display:flex;flex-direction:column}
   
-  .hero-content{position:absolute;inset:0;z-index:10;pointer-events:none}
+  .map-wrap{position:relative;height:100svh;width:100%}
+  .scanline-overlay,.vignette{position:absolute;top:0;left:0;right:0;height:100svh;bottom:auto}
   
-  /* Hide the huge text blocks on mobile for an immersive map experience */
-  .cmd-header{display:none}
-  .hud-strip{display:none}
+  .hero-content{position:relative;inset:auto;z-index:10;pointer-events:auto;padding:40px 16px 0;display:flex;flex-direction:column;gap:32px;background:#050508}
+  
+  .cmd-header{display:block;position:relative;top:auto;left:auto;right:auto;max-width:none;background:transparent;padding:0;border:none;backdrop-filter:none}
+  .cmd-label{font-size:9px;margin-bottom:8px}
+  .cmd-title{font-size:32px;margin-bottom:12px}
+  .cmd-sub{font-size:14px;margin-bottom:24px;color:#888899}
+  .cmd-ctas{flex-direction:column;gap:12px}
+  .btn-primary,.btn-secondary{width:100%;text-align:center;padding:12px 20px;font-size:14px}
+  .cmd-meta{font-size:10px;margin-top:16px}
+
+  .hud-strip{display:flex;position:relative;left:auto;right:auto;bottom:auto;margin:0;gap:16px;padding:20px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1);border-radius:12px}
+  .hud-stat{min-width:30%;align-items:center;text-align:center}
+  .hud-stat::before{width:20px;margin:0 auto}
+  .hud-val{font-size:24px}
+  .hud-lbl{font-size:9px}
   .scroll-indicator{display:none}
   
-  /* Make a small safe area at the bottom for page scrolling, or just let them use the nav */
+  .lb-panel{display:block;position:relative;top:auto;right:auto;width:100%;max-height:none;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1)}
+  .lb-list{max-height:320px}
+  
   .mobile-scroll-hint {
     display: flex;
     position: absolute;
-    bottom: 20px;
+    top: calc(100svh - 60px);
     left: 50%;
     transform: translateX(-50%);
     background: rgba(5,5,8,0.8);
@@ -431,15 +445,13 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
     pointer-events: auto;
     text-transform: uppercase;
     animation: pulse 2s infinite;
+    z-index: 20;
   }
   @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(255,23,68,0.4); }
     70% { box-shadow: 0 0 0 10px rgba(255,23,68,0); }
     100% { box-shadow: 0 0 0 0 rgba(255,23,68,0); }
   }
-
-  /* Leaderboard — hide on mobile (academy cards section below shows the same data) */
-  .lb-panel{display:none}
 
   /* Map popup → centered bottom sheet style */
   .leaflet-popup-pane .leaflet-popup{margin:0!important}
