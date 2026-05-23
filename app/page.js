@@ -43,14 +43,8 @@ function useFadeIn(delay = 0) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.style.opacity = "0";
-    el.style.transform = "translateY(24px)";
-    el.style.transition = `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { el.style.opacity = "1"; el.style.transform = "translateY(0)"; obs.disconnect(); }
-    }, { threshold: 0.15 });
-    obs.observe(el);
-    return () => obs.disconnect();
+    // Removed the opacity: 0 hack because it was causing the page to go permanently blank on some browsers/devices if IntersectionObserver failed to fire.
+    // We'll rely on natural rendering.
   }, [delay]);
   return ref;
 }

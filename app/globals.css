@@ -180,7 +180,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 /* ═══ ACADEMY DETAILS PANEL (SCREEN-SPACE) ═══ */
 .academy-panel-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -298,7 +298,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 @media (max-width: 768px) {
   .academy-panel {
     top: auto;
-    bottom: -100%;
+    bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
@@ -307,10 +307,10 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
     border: 1px solid rgba(255, 23, 68, 0.15);
     border-bottom: none;
     box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    transform: translateY(0);
+    transform: translateY(100%);
   }
   .academy-panel-overlay.active .academy-panel {
-    transform: translateY(-100%);
+    transform: translateY(0);
   }
 }
 
