@@ -70,10 +70,128 @@ const BADGE_LABELS = { founding: "GWD FOUNDING MEMBER", verified: "GWD VERIFIED"
 const BADGE_SHORT = { founding: "FOUNDING", verified: "VERIFIED", premium: "PREMIUM" };
 
 /* ══════════════════════════════════
+   ACADEMY DETAILS PANEL
+   ══════════════════════════════════ */
+function AcademyDetailsPanel({ academy, onClose }) {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (academy) {
+      // Small delay to allow DOM to mount before triggering transition
+      const timer = setTimeout(() => setActive(true), 10);
+      return () => clearTimeout(timer);
+    } else {
+      setActive(false);
+    }
+  }, [academy]);
+
+  if (!academy && !active) return null;
+
+  const badgeLabel = academy?.badge === "founding" ? "GWD Founding Academy" : academy?.badge === "premium" ? "GWD Premium Partner" : "GWD Verified";
+  const stars = Array.from({ length: 3 }, (_, i) =>
+    `<span class="star ${i < (academy?.rating || 0) ? "filled" : ""}">&#9733;</span>`
+  ).join("");
+
+  return (
+    <div className={`academy-panel-overlay ${active ? "active" : ""}`} onClick={(e) => {
+      // Close if clicking the overlay (outside the panel)
+      if (e.target.classList.contains('academy-panel-overlay')) onClose();
+    }}>
+      <div className="academy-panel">
+        <button className="ap-close" onClick={onClose}>&times;</button>
+        
+        <div className="ap-header">
+          <div className="ap-name">{academy?.name}</div>
+          <div className="ap-meta">
+            <span className="ap-sport">{academy?.sport}</span>
+            <span className="ap-area">{academy?.area || academy?.city}</span>
+          </div>
+          <div className="ap-stars" dangerouslySetInnerHTML={{ __html: stars }} />
+        </div>
+
+        <div className="ap-badge">{badgeLabel}</div>
+        
+        {academy?.topRank && (
+          <div className="ap-top-rank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#ffd700" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {academy.topRank}
+          </div>
+        )}
+
+        {(academy?.matchesPlayed || academy?.trophies || academy?.winRate) && (
+          <div className="ap-metrics">
+            {academy?.matchesPlayed && <div className="ap-metric-item"><div className="ap-metric-val">{academy.matchesPlayed}</div><div className="ap-metric-lbl">Matches</div></div>}
+            {academy?.trophies && <div className="ap-metric-item"><div className="ap-metric-val ap-gold">{academy.trophies}</div><div className="ap-metric-lbl">Trophies</div></div>}
+            {academy?.winRate && <div className="ap-metric-item"><div className="ap-metric-val ap-green">{academy.winRate}%</div><div className="ap-metric-lbl">Win Rate</div></div>}
+          </div>
+        )}
+
+        <div className="ap-divider" />
+        
+        <div className="ap-stat">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          {academy?.students} students &middot; Est. {academy?.founded}{academy?.coach ? ` · Coach: ${academy.coach}` : ""}
+        </div>
+
+        {academy?.starPlayers && academy.starPlayers.length > 0 && (
+          <div className="ap-section">
+            <div className="ap-sec-head">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffd700" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              STAR PLAYERS
+            </div>
+            <div className="ap-list">
+              {academy.starPlayers.slice(0, 3).map((p, i) => {
+                const isNat = p.level === "national";
+                const badgeColor = isNat ? "#ffd700" : p.level === "state" ? "#4caf50" : "#4a9eff";
+                const badgeBg = isNat ? "rgba(255,215,0,.15)" : p.level === "state" ? "rgba(76,175,80,.12)" : "rgba(74,158,255,.12)";
+                return (
+                  <div className="ap-row" key={i}>
+                    <div className="ap-avatar">{p.name.charAt(0)}</div>
+                    <div className="ap-info">
+                      <div className="ap-row-name">{p.name}</div>
+                      <div className="ap-ach">{p.achievement}</div>
+                    </div>
+                    <span className="ap-level-badge" style={{ color: badgeColor, background: badgeBg, borderColor: badgeColor }}>{p.level.toUpperCase()}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {academy?.teams && academy.teams.length > 0 && (
+          <div className="ap-section">
+            <div className="ap-sec-head">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF1744" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              REGISTERED TEAMS
+            </div>
+            <div className="ap-list">
+              {academy.teams.slice(0, 2).map((t, i) => (
+                <div className="ap-team-row" key={i}>
+                  <div className="ap-team-icon">⚔</div>
+                  <div className="ap-info">
+                    <div className="ap-row-name">{t.name}</div>
+                    <div className="ap-meta-sub">{t.division} &middot; W{t.wins}–L{t.losses}</div>
+                  </div>
+                  <div className="ap-team-wr">{Math.round((t.wins / (t.wins + t.losses)) * 100)}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <a href="#" className="ap-link">View Full Profile <span>&rarr;</span></a>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════
    STATIC LEADERBOARD + REGION TABS
    ══════════════════════════════════ */
 function Leaderboard({ academies }) {
   const [activeTab, setActiveTab] = useState("all");
+  const [showAll, setShowAll] = useState(false);
   const active = academies.filter((a) => a.status === "active");
 
   // Auto-build region tabs from data
@@ -91,25 +209,25 @@ function Leaderboard({ academies }) {
   const maxStudents = Math.max(...active.map((a) => a.students || 0), 1);
 
   // Zoom map to region when tab clicked
-  const handleTabClick = (tab) => {
+  const handleTabClick = async (tab) => {
     setActiveTab(tab);
+    setShowAll(false);
     const map = window.__gwdMap;
     if (!map) return;
 
+    const leaflet = (await import("leaflet")).default;
+
     if (tab === "all") {
-      // Fit all active
       if (active.length >= 2) {
-        const L = require("leaflet");
-        const bounds = L.latLngBounds(active.map((a) => [parseFloat(a.lat), parseFloat(a.lng)]));
-        map.flyToBounds(bounds.pad(0.3), { duration: 0.8 });
+        const bounds = leaflet.latLngBounds(active.map((a) => [parseFloat(a.lat), parseFloat(a.lng)]));
+        map.flyToBounds(bounds.pad(0.15), { duration: 0.8 });
       }
     } else {
       const inRegion = active.filter((a) => a.area === tab);
       if (inRegion.length === 1) {
         map.flyTo([parseFloat(inRegion[0].lat), parseFloat(inRegion[0].lng)], 15, { duration: 0.8 });
       } else if (inRegion.length >= 2) {
-        const L = require("leaflet");
-        const bounds = L.latLngBounds(inRegion.map((a) => [parseFloat(a.lat), parseFloat(a.lng)]));
+        const bounds = leaflet.latLngBounds(inRegion.map((a) => [parseFloat(a.lat), parseFloat(a.lng)]));
         map.flyToBounds(bounds.pad(0.2), { duration: 0.8 });
       }
     }
@@ -147,9 +265,9 @@ function Leaderboard({ academies }) {
         </div>
       </div>
 
-      {/* Academy list */}
+      {/* Academy list — paginated */}
       <div className="lb-list">
-        {filtered.map((a, i) => (
+        {(showAll ? filtered : filtered.slice(0, 10)).map((a, i) => (
           <div
             key={a.id}
             className={`lb-row ${i === 0 ? "lb-row-top" : ""}`}
@@ -182,6 +300,11 @@ function Leaderboard({ academies }) {
         {filtered.length === 0 && (
           <div className="lb-empty-msg">No academies in this region yet.</div>
         )}
+        {!showAll && filtered.length > 10 && (
+          <button className="lb-show-more" onClick={() => setShowAll(true)}>
+            Show all {filtered.length} academies
+          </button>
+        )}
       </div>
 
       {/* Footer */}
@@ -196,6 +319,7 @@ function Leaderboard({ academies }) {
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [academies, setAcademies] = useState([]);
+  const [selectedAcademy, setSelectedAcademy] = useState(null);
 
   useEffect(() => {
     fetch("/api/academies").then((r) => r.json()).then(setAcademies).catch(() => {});
@@ -250,7 +374,7 @@ export default function Home() {
 
       <section className="hero">
         <div className="map-wrap">
-          <EcosystemMap academies={academies} />
+          <EcosystemMap academies={academies} onAcademyClick={setSelectedAcademy} />
         </div>
         <div className="scanline-overlay" />
         <div className="vignette" />
@@ -289,12 +413,13 @@ export default function Home() {
             <span className="scroll-arrow" />
           </div>
 
-          <div className="custom-zoom">
-            <button onClick={() => window.__gwdMap?.zoomIn()} aria-label="Zoom in">+</button>
-            <button onClick={() => window.__gwdMap?.zoomOut()} aria-label="Zoom out">&minus;</button>
+            <div className="custom-zoom">
+              <button onClick={() => window.__gwdMap?.zoomIn()} aria-label="Zoom in">+</button>
+              <button onClick={() => window.__gwdMap?.zoomOut()} aria-label="Zoom out">&minus;</button>
+            </div>
           </div>
-        </div>
-      </section>
+          <AcademyDetailsPanel academy={selectedAcademy} onClose={() => setSelectedAcademy(null)} />
+        </section>
 
       <section className="stats-bar" id="ecosystem">
         <div className="stats-row">
