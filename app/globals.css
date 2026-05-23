@@ -1,7 +1,7 @@
 /* ═══ RESET & BASE ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;background:#050508;color:#F0F0F0;font-size:14px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter',system-ui,sans-serif;background:#050508;color:#F0F0F0;font-size:14px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;width:100%;min-width:0}
 ::selection{background:rgba(255,23,68,.3);color:#fff}
 
 /* ═══ DOT GRID BACKGROUND ═══ */
@@ -406,14 +406,16 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
      Map fills the full viewport as section 1,
      then content flows naturally below it.
      No position:absolute chaos. Just flex column. */
-  .hero{height:auto;min-height:auto;display:flex;flex-direction:column;overflow:visible}
+  .hero{height:auto;min-height:auto;display:flex;flex-direction:column;overflow:hidden}
 
-  /* Map takes full viewport height, sits in normal flow */
-  .map-wrap{position:relative;height:100svh;width:100%;flex-shrink:0}
+  /* Map takes full viewport height, sits in normal flow — full bleed */
+  .map-wrap{position:relative;height:100svh;width:100%;flex-shrink:0;overflow:hidden}
+  #map{width:100%!important;height:100%!important}
 
   /* These overlays sit INSIDE the map area only */
-  .scanline-overlay{position:absolute;top:0;left:0;right:0;height:100%;bottom:auto;z-index:2}
-  .vignette{position:absolute;top:0;left:0;right:0;height:100%;bottom:auto;z-index:3}
+  .scanline-overlay{position:absolute;top:0;left:0;right:0;bottom:0;z-index:2}
+  /* Remove vignette on mobile — it darkens edges and looks like a gap */
+  .vignette{display:none}
 
   /* Content sits below map in normal document flow */
   .hero-content{position:relative;z-index:10;pointer-events:auto;padding:0;display:flex;flex-direction:column;gap:0;background:#050508}

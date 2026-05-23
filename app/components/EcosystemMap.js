@@ -78,6 +78,10 @@ export default function EcosystemMap({ academies = [], onAcademyClick }) {
     mapInstance.current = map;
     if (typeof window !== "undefined") window.__gwdMap = map;
 
+    // Force Leaflet to recalculate container size after layout settles
+    setTimeout(() => map.invalidateSize(), 200);
+    window.addEventListener("resize", () => map.invalidateSize());
+
     return () => { map.remove(); mapInstance.current = null; };
   }, [onAcademyClick]);
 
