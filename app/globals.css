@@ -79,6 +79,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .scroll-text{writing-mode:vertical-rl;font-size:10px;color:#444455;letter-spacing:.2em;text-transform:uppercase}
 .scroll-arrow{width:12px;height:12px;border-right:1.5px solid #444455;border-bottom:1.5px solid #444455;transform:rotate(45deg);animation:scrollBounce 2s infinite}
 @keyframes scrollBounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
+.mobile-scroll-hint{display:none}
 
 /* ═══════════════════════════════════════════════
    PROGRESSIVE-DETAIL NODE MARKERS
@@ -401,27 +402,41 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   .nav-links a:not(.nav-cta){display:none}
   .nav-cta{padding:5px 12px;font-size:12px}
 
-  /* Hero layout */
-  .hero{height:auto;min-height:100svh;padding-top:60vh;display:flex;flex-direction:column}
-  .map-wrap,.scanline-overlay,.vignette{position:absolute;top:0;left:0;right:0;height:60vh;bottom:auto}
+  /* Hero layout - Immersive Map on Mobile */
+  .hero{height:100svh;min-height:600px;display:block;padding-top:0}
+  .map-wrap,.scanline-overlay,.vignette{position:absolute;inset:0;height:100%;bottom:0}
   
-  .hero-content{position:relative;z-index:10;pointer-events:auto;padding:24px 0 40px;display:flex;flex-direction:column;gap:24px}
+  .hero-content{position:absolute;inset:0;z-index:10;pointer-events:none}
   
-  .cmd-header{position:relative;top:auto;left:auto;right:auto;max-width:none;background:transparent;padding:0 16px;border:none;backdrop-filter:none;margin-top:0}
-  .cmd-label{font-size:9px;margin-bottom:8px}
-  .cmd-title{font-size:32px;margin-bottom:12px}
-  .cmd-sub{font-size:14px;margin-bottom:24px;color:#888899}
-  .cmd-ctas{flex-direction:column;gap:12px}
-  .btn-primary,.btn-secondary{width:100%;text-align:center;padding:12px 20px;font-size:14px}
-  .cmd-meta{font-size:10px;margin-top:16px}
-
-  /* HUD strip */
-  .hud-strip{position:relative;left:auto;right:auto;bottom:auto;margin:0 16px;gap:16px;padding:20px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1)}
-  .hud-stat{min-width:30%;align-items:center;text-align:center}
-  .hud-stat::before{width:20px;margin:0 auto}
-  .hud-val{font-size:24px}
-  .hud-lbl{font-size:9px}
+  /* Hide the huge text blocks on mobile for an immersive map experience */
+  .cmd-header{display:none}
+  .hud-strip{display:none}
   .scroll-indicator{display:none}
+  
+  /* Make a small safe area at the bottom for page scrolling, or just let them use the nav */
+  .mobile-scroll-hint {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(5,5,8,0.8);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,23,68,0.3);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    pointer-events: auto;
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,23,68,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255,23,68,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,23,68,0); }
+  }
 
   /* Leaderboard — hide on mobile (academy cards section below shows the same data) */
   .lb-panel{display:none}

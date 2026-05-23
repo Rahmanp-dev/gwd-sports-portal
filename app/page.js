@@ -407,6 +407,10 @@ export default function Home() {
             <span className="scroll-arrow" />
           </div>
 
+          <div className="mobile-scroll-hint">
+            Scroll to Explore &darr;
+          </div>
+
             <div className="custom-zoom">
               <button onClick={() => window.__gwdMap?.zoomIn()} aria-label="Zoom in">+</button>
               <button onClick={() => window.__gwdMap?.zoomOut()} aria-label="Zoom out">&minus;</button>
