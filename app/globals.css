@@ -402,83 +402,66 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   .nav-links a:not(.nav-cta){display:none}
   .nav-cta{padding:5px 12px;font-size:12px}
 
-  /* Hero layout - Immersive Map on Mobile */
-  .hero{height:auto;min-height:auto;display:flex;flex-direction:column}
-  
-  .map-wrap{position:relative;height:100svh;width:100%}
-  .scanline-overlay,.vignette{position:absolute;top:0;left:0;right:0;height:100svh;bottom:auto}
-  
-  .hero-content{position:relative;inset:auto;z-index:10;pointer-events:auto;padding:40px 16px 0;display:flex;flex-direction:column;gap:32px;background:#050508}
-  
-  .cmd-header{display:block;position:relative;top:auto;left:auto;right:auto;max-width:none;background:transparent;padding:0;border:none;backdrop-filter:none}
+  /* ── HERO: stacking layout ─────────────────────
+     Map fills the full viewport as section 1,
+     then content flows naturally below it.
+     No position:absolute chaos. Just flex column. */
+  .hero{height:auto;min-height:auto;display:flex;flex-direction:column;overflow:visible}
+
+  /* Map takes full viewport height, sits in normal flow */
+  .map-wrap{position:relative;height:100svh;width:100%;flex-shrink:0}
+
+  /* These overlays sit INSIDE the map area only */
+  .scanline-overlay{position:absolute;top:0;left:0;right:0;height:100%;bottom:auto;z-index:2}
+  .vignette{position:absolute;top:0;left:0;right:0;height:100%;bottom:auto;z-index:3}
+
+  /* Content sits below map in normal document flow */
+  .hero-content{position:relative;z-index:10;pointer-events:auto;padding:0;display:flex;flex-direction:column;gap:0;background:#050508}
+
+  /* ── CMD HEADER ── */
+  .cmd-header{display:block;position:relative;top:auto;left:auto;right:auto;max-width:none;background:transparent;padding:32px 20px 24px;border:none;backdrop-filter:none}
+  .cmd-header::before{display:none}
   .cmd-label{font-size:9px;margin-bottom:8px}
-  .cmd-title{font-size:32px;margin-bottom:12px}
-  .cmd-sub{font-size:14px;margin-bottom:24px;color:#888899}
-  .cmd-ctas{flex-direction:column;gap:12px}
+  .cmd-title{font-size:28px;margin-bottom:10px}
+  .cmd-sub{font-size:14px;margin-bottom:20px;color:#888899}
+  .cmd-ctas{flex-direction:column;gap:10px}
   .btn-primary,.btn-secondary{width:100%;text-align:center;padding:12px 20px;font-size:14px}
-  .cmd-meta{font-size:10px;margin-top:16px}
+  .cmd-meta{font-size:10px;margin-top:14px}
 
-  .hud-strip{display:flex;position:relative;left:auto;right:auto;bottom:auto;margin:0;gap:16px;padding:20px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1);border-radius:12px}
-  .hud-stat{min-width:30%;align-items:center;text-align:center}
+  /* ── HUD STRIP ── */
+  .hud-strip{display:flex;position:relative;left:auto;right:auto;bottom:auto;margin:0 20px 20px;gap:16px;padding:16px 20px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1);border-radius:10px}
+  .hud-stat{min-width:28%;align-items:center;text-align:center}
   .hud-stat::before{width:20px;margin:0 auto}
-  .hud-val{font-size:24px}
-  .hud-lbl{font-size:9px}
+  .hud-val{font-size:22px}
+  .hud-lbl{font-size:8px}
+
   .scroll-indicator{display:none}
-  
-  .lb-panel{display:block;position:relative;top:auto;right:auto;width:100%;max-height:none;background:rgba(255,255,255,.02);border:1px solid rgba(255,23,68,.1)}
-  .lb-list{max-height:320px}
-  
-  .mobile-scroll-hint {
-    display: flex;
-    position: absolute;
-    top: calc(100svh - 60px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(5,5,8,0.8);
-    backdrop-filter: blur(8px);
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,23,68,0.3);
-    color: #fff;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    pointer-events: auto;
-    text-transform: uppercase;
-    animation: pulse 2s infinite;
-    z-index: 20;
+
+  /* ── LEADERBOARD — fully reset to static flow ── */
+  .lb-panel{position:static!important;top:auto!important;right:auto!important;left:auto!important;width:100%!important;max-height:none;margin:0 0 0;border-radius:0;background:rgba(5,5,8,.95);border:none;border-top:1px solid rgba(255,23,68,.1);border-bottom:1px solid rgba(255,23,68,.1);backdrop-filter:none;box-shadow:none}
+  .lb-list{max-height:280px}
+
+  /* ── SCROLL HINT — pinned to bottom of map viewport ── */
+  .mobile-scroll-hint{
+    display:flex;position:absolute;top:calc(100svh - 56px);left:50%;transform:translateX(-50%);
+    background:rgba(5,5,8,.85);backdrop-filter:blur(8px);padding:8px 16px;border-radius:20px;
+    border:1px solid rgba(255,23,68,.3);color:#fff;font-size:11px;letter-spacing:.1em;
+    pointer-events:auto;text-transform:uppercase;z-index:20;animation:mobilePulse 2s infinite
   }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,23,68,0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255,23,68,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,23,68,0); }
+  @keyframes mobilePulse{
+    0%{box-shadow:0 0 0 0 rgba(255,23,68,.4)}
+    70%{box-shadow:0 0 0 10px rgba(255,23,68,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,23,68,0)}
   }
 
-  /* Map popup → centered bottom sheet style */
-  .leaflet-popup-pane .leaflet-popup{margin:0!important}
-  .leaflet-popup-content-wrapper{border-radius:12px 12px 0 0!important;max-width:calc(100vw - 16px)!important}
-  .popup-rich .popup-header{padding:14px 14px 0}
-  .popup-rich .popup-name{font-size:13px}
-  .popup-rich .popup-badge{margin:8px 14px 0;padding:4px 12px;font-size:8px}
-  .popup-metrics{margin:8px 14px 0}
-  .pm-val{font-size:14px}
-  .popup-section{padding:0 14px}
-  .popup-rich .popup-stat{padding:0 14px;font-size:10px}
-  .popup-divider{margin:8px 14px}
-  .sp-row{padding:5px 8px}
-  .sp-avatar{width:22px;height:22px;font-size:9px}
-  .sp-name{font-size:10px}
-  .sp-ach{font-size:8px}
-  .team-row{padding:5px 8px}
-  .popup-rich .popup-link{padding:8px 14px;font-size:11px}
-
-  /* Stats bar */
+  /* ── STATS BAR ── */
   .stats-row{flex-wrap:wrap;gap:16px;padding:0 16px}
   .stat-item{flex:1 0 40%;padding:12px 0}
   .stat-item+.stat-item::before{display:none}
   .stat-num{font-size:28px}
   .stat-lbl{font-size:10px}
 
-  /* Academy cards */
+  /* ── ACADEMY CARDS ── */
   .section{padding:48px 16px}
   .sec-label{font-size:10px}
   .sec-title{font-size:24px}
@@ -488,25 +471,28 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   .card-name{font-size:17px;margin-top:10px}
   .card-view{position:static;opacity:1;transform:none;margin-top:12px}
 
-  /* How it works */
+  /* ── HOW IT WORKS ── */
   .hiw-section{padding:48px 16px}
   .hiw-steps{flex-direction:column;gap:36px;margin-top:36px}
   .hiw-step{padding-left:0;padding-right:0}
   .hiw-step+.hiw-step::before{display:none}
 
-  /* CTA */
+  /* ── CTA ── */
   .cta-section{padding:48px 16px}
   .cta-headline{font-size:24px}
   .cta-box{padding:28px 16px}
   .cta-btn{width:100%;font-size:14px}
 
-  /* Footer */
+  /* ── FOOTER ── */
   .footer{flex-direction:column;gap:12px;text-align:center;padding:28px 16px}
   .footer-copy{text-align:center}
 
-  /* Custom zoom */
+  /* ── CUSTOM ZOOM ── */
   .custom-zoom{bottom:20px;right:12px}
   .custom-zoom button{width:32px;height:32px;font-size:16px}
+
+  /* ── ACADEMY DETAILS PANEL (bottom sheet) ── */
+  .academy-panel-overlay{position:fixed}
 }
 
 /* ═══════════════════════════════
@@ -613,11 +599,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .lb-foot{display:flex;align-items:center;gap:6px;padding:8px 16px;font-size:8px;color:#444;text-transform:uppercase;letter-spacing:.1em;border-top:.5px solid rgba(255,255,255,.04)}
 .lb-signal{width:4px;height:4px;border-radius:50%;background:#FF1744;animation:livePulse 2s infinite}
 
-@media(max-width:768px){
-  .lb-panel{top:66px;right:10px;width:260px}
-  .lb-list{max-height:180px}
-  .lb-tabs{padding:8px 0}
-}
+/* Leaderboard mobile overrides are consolidated into the main mobile block above */
 
 /* ═══════════════════════════════
    ADMIN DASHBOARD STYLES

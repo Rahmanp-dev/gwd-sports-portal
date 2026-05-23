@@ -369,9 +369,9 @@ export default function Home() {
       <section className="hero">
         <div className="map-wrap">
           <EcosystemMap academies={academies} onAcademyClick={setSelectedAcademy} />
+          <div className="scanline-overlay" />
+          <div className="vignette" />
         </div>
-        <div className="scanline-overlay" />
-        <div className="vignette" />
 
         <div className="hero-content">
           <div className="cmd-header">
