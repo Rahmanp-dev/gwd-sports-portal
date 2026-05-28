@@ -81,6 +81,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 @keyframes scrollBounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
 .mobile-scroll-hint{display:none}
 
+/* Founding Academy #1 tag */
+.founding-one-tag{display:inline-flex;align-items:center;font-size:9px;font-weight:700;color:#ffd700;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);padding:1px 7px;border-radius:10px;margin-left:6px;letter-spacing:.04em;vertical-align:middle;line-height:1.6;white-space:nowrap}
+
 /* ═══════════════════════════════════════════════
    PROGRESSIVE-DETAIL NODE MARKERS
    Controlled by [data-zoom] attribute on #map

@@ -63,6 +63,10 @@ const IconNetwork = () => (
 const BADGE_LABELS = { founding: "GWD FOUNDING MEMBER", verified: "GWD VERIFIED", premium: "GWD PREMIUM" };
 const BADGE_SHORT = { founding: "FOUNDING", verified: "VERIFIED", premium: "PREMIUM" };
 
+/* Check if academy is Mastergrade (Founding Academy #1) */
+const isMastergrade = (name) => name && /master\s*grade/i.test(name);
+const FoundingTag = () => <span className="founding-one-tag">#1</span>;
+
 /* ══════════════════════════════════
    ACADEMY DETAILS PANEL
    ══════════════════════════════════ */
@@ -95,7 +99,7 @@ function AcademyDetailsPanel({ academy, onClose }) {
         <button className="ap-close" onClick={onClose}>&times;</button>
         
         <div className="ap-header">
-          <div className="ap-name">{academy?.name}</div>
+          <div className="ap-name">{academy?.name} {isMastergrade(academy?.name) && <FoundingTag />}</div>
           <div className="ap-meta">
             <span className="ap-sport">{academy?.sport}</span>
             <span className="ap-area">{academy?.area || academy?.city}</span>
@@ -275,7 +279,7 @@ function Leaderboard({ academies }) {
               )}
             </div>
             <div className="lb-detail">
-              <div className="lb-name">{a.name}</div>
+              <div className="lb-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
               <div className="lb-meta-row">
                 <span className={`lb-badge lb-badge-${a.badge || "verified"}`}>{BADGE_SHORT[a.badge] || "VERIFIED"}</span>
                 <span className="lb-sport">{a.sport}</span>
@@ -436,7 +440,7 @@ export default function Home() {
           {active.map((a, i) => (
             <div className="academy-card" key={a.id || i} style={{ transitionDelay: `${i * 80}ms` }}>
               <span className="card-badge">{BADGE_LABELS[a.badge] || "GWD VERIFIED"}</span>
-              <div className="card-name">{a.name}</div>
+              <div className="card-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
               <div className="card-sport">{a.sport}{a.area ? ` · ${a.area}` : ""}</div>
               <div className="card-divider" />
               <div className="card-stats">
