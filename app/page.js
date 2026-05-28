@@ -63,8 +63,9 @@ const IconNetwork = () => (
 const BADGE_LABELS = { founding: "GWD FOUNDING MEMBER", verified: "GWD VERIFIED", premium: "GWD PREMIUM" };
 const BADGE_SHORT = { founding: "FOUNDING", verified: "VERIFIED", premium: "PREMIUM" };
 
-/* Check if academy is Mastergrade (Founding Academy #1) */
+/* Check if academy is Mastergrade (Founding Academy #1) or Bhavans */
 const isMastergrade = (name) => name && /master\s*grade/i.test(name);
+const isBhavans = (name) => name && /bhavan/i.test(name);
 const FoundingTag = () => <span className="founding-one-tag">#1</span>;
 
 /* ══════════════════════════════════
@@ -198,10 +199,22 @@ function Leaderboard({ academies }) {
     return areas.sort();
   }, [active]);
 
-  // Filter + sort
+  // Filter + sort (Mastergrade 1st, Bhavans 2nd, rest random)
   const filtered = useMemo(() => {
-    const list = activeTab === "all" ? active : active.filter((a) => a.area === activeTab);
-    return list.sort((a, b) => (b.students || 0) - (a.students || 0));
+    const list = activeTab === "all" ? [...active] : active.filter((a) => a.area === activeTab);
+    return list.sort((a, b) => {
+      const aM = isMastergrade(a.name);
+      const bM = isMastergrade(b.name);
+      if (aM && !bM) return -1;
+      if (!aM && bM) return 1;
+
+      const aB = isBhavans(a.name);
+      const bB = isBhavans(b.name);
+      if (aB && !bB) return -1;
+      if (!aB && bB) return 1;
+
+      return Math.random() - 0.5;
+    });
   }, [active, activeTab]);
 
   const maxStudents = Math.max(...active.map((a) => a.students || 0), 1);
@@ -323,7 +336,22 @@ export default function Home() {
     fetch("/api/academies").then((r) => r.json()).then(setAcademies).catch(() => {});
   }, []);
 
-  const active = academies.filter((a) => a.status === "active");
+  const active = useMemo(() => {
+    const list = academies.filter((a) => a.status === "active");
+    return list.sort((a, b) => {
+      const aM = isMastergrade(a.name);
+      const bM = isMastergrade(b.name);
+      if (aM && !bM) return -1;
+      if (!aM && bM) return 1;
+
+      const aB = isBhavans(a.name);
+      const bB = isBhavans(b.name);
+      if (aB && !bB) return -1;
+      if (!aB && bB) return 1;
+
+      return Math.random() - 0.5;
+    });
+  }, [academies]);
   const totalStudents = active.reduce((s, a) => s + (a.students || 0), 0);
   const activeSports = [...new Set(active.map((a) => a.sport))].length;
 
