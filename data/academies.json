@@ -20,12 +20,34 @@
     "winRate": 68,
     "topRank": "District Semifinalist",
     "starPlayers": [
-      { "name": "Rohit Sharma K", "achievement": "State U-16 Selection", "sport": "Football", "level": "state" },
-      { "name": "Aditya Varma", "achievement": "District MVP 2025", "sport": "Football", "level": "district" }
+      {
+        "name": "Rohit Sharma K",
+        "achievement": "State U-16 Selection",
+        "sport": "Football",
+        "level": "state"
+      },
+      {
+        "name": "Aditya Varma",
+        "achievement": "District MVP 2025",
+        "sport": "Football",
+        "level": "district"
+      }
     ],
     "teams": [
-      { "name": "MG Thunderbolts", "sport": "Football", "division": "U-14", "wins": 12, "losses": 3 },
-      { "name": "MG Strikers FC", "sport": "Football", "division": "U-17", "wins": 8, "losses": 5 }
+      {
+        "name": "MG Thunderbolts",
+        "sport": "Football",
+        "division": "U-14",
+        "wins": 12,
+        "losses": 3
+      },
+      {
+        "name": "MG Strikers FC",
+        "sport": "Football",
+        "division": "U-17",
+        "wins": 8,
+        "losses": 5
+      }
     ]
   },
   {
@@ -49,40 +71,40 @@
     "winRate": 72,
     "topRank": "State U-14 Runners-Up",
     "starPlayers": [
-      { "name": "Arjun Reddy", "achievement": "State U-14 Squad", "sport": "Cricket", "level": "state" },
-      { "name": "Prateek Yadav", "achievement": "National Camp Invitee", "sport": "Cricket", "level": "national" },
-      { "name": "Karthik Nair", "achievement": "District Best Bowler", "sport": "Cricket", "level": "district" }
+      {
+        "name": "Arjun Reddy",
+        "achievement": "State U-14 Squad",
+        "sport": "Cricket",
+        "level": "state"
+      },
+      {
+        "name": "Prateek Yadav",
+        "achievement": "National Camp Invitee",
+        "sport": "Cricket",
+        "level": "national"
+      },
+      {
+        "name": "Karthik Nair",
+        "achievement": "District Best Bowler",
+        "sport": "Cricket",
+        "level": "district"
+      }
     ],
     "teams": [
-      { "name": "BCA Lions XI", "sport": "Cricket", "division": "U-14", "wins": 18, "losses": 6 },
-      { "name": "BCA Warriors", "sport": "Cricket", "division": "U-17", "wins": 14, "losses": 8 }
-    ]
-  },
-  {
-    "id": "elite-cricket-hub-mp9qrwdr",
-    "name": "Elite Cricket Hub",
-    "lat": 17.46,
-    "lng": 78.35,
-    "sport": "Cricket",
-    "students": 80,
-    "rating": 2,
-    "city": "Hyderabad, TG",
-    "area": "Miyapur",
-    "founded": "2026",
-    "coach": "Venkat Rao",
-    "phone": "",
-    "status": "active",
-    "badge": "founding",
-    "createdAt": "2026-05-17T12:18:55.792Z",
-    "matchesPlayed": 24,
-    "trophies": 1,
-    "winRate": 58,
-    "topRank": "City League Finalists",
-    "starPlayers": [
-      { "name": "Sai Kiran", "achievement": "State U-16 Trials Cleared", "sport": "Cricket", "level": "state" }
-    ],
-    "teams": [
-      { "name": "ECH Titans XI", "sport": "Cricket", "division": "U-14", "wins": 10, "losses": 7 }
+      {
+        "name": "BCA Lions XI",
+        "sport": "Cricket",
+        "division": "U-14",
+        "wins": 18,
+        "losses": 6
+      },
+      {
+        "name": "BCA Warriors",
+        "sport": "Cricket",
+        "division": "U-17",
+        "wins": 14,
+        "losses": 8
+      }
     ]
   }
 ]

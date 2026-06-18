@@ -252,76 +252,78 @@ function Leaderboard({ academies }) {
 
   return (
     <div className="lb-panel">
-      {/* Header */}
-      <div className="lb-head">
-        <div className="lb-head-top">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF1744" strokeWidth="2"><path d="M12 20V10M18 20V4M6 20v-4" /></svg>
-          <span className="lb-title">ACADEMY LEADERBOARD</span>
-          <span className="lb-count">{filtered.length}</span>
-        </div>
-
-        {/* Region tabs */}
-        <div className="lb-tabs">
-          <button
-            className={`lb-tab ${activeTab === "all" ? "lb-tab-active" : ""}`}
-            onClick={() => handleTabClick("all")}
-          >All</button>
-          {regions.map((r) => (
-            <button
-              key={r}
-              className={`lb-tab ${activeTab === r ? "lb-tab-active" : ""}`}
-              onClick={() => handleTabClick(r)}
-            >{r}</button>
-          ))}
-        </div>
-      </div>
-
-      {/* Academy list — paginated */}
-      <div className="lb-list">
-        {(showAll ? filtered : filtered.slice(0, 10)).map((a, i) => (
-          <div
-            key={a.id}
-            className={`lb-row ${i === 0 ? "lb-row-top" : ""}`}
-            onClick={() => handleRowClick(a)}
-          >
-            <div className="lb-pos">
-              {i === 0 ? (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF1744" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
-              ) : (
-                <span>{i + 1}</span>
-              )}
-            </div>
-            <div className="lb-detail">
-              <div className="lb-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
-              <div className="lb-meta-row">
-                <span className={`lb-badge lb-badge-${a.badge || "verified"}`}>{BADGE_SHORT[a.badge] || "VERIFIED"}</span>
-                <span className="lb-sport">{a.sport}</span>
-                {a.area && <span className="lb-area-tag">{a.area}</span>}
-              </div>
-            </div>
-            <div className="lb-score">
-              <div className="lb-score-num">{a.students || 0}</div>
-              <div className="lb-score-bar">
-                <div className="lb-score-fill" style={{ width: `${((a.students || 0) / maxStudents) * 100}%` }} />
-              </div>
-            </div>
+      <div className="lb-panel-inner">
+        {/* Header */}
+        <div className="lb-head">
+          <div className="lb-head-top">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF1744" strokeWidth="2"><path d="M12 20V10M18 20V4M6 20v-4" /></svg>
+            <span className="lb-title">ACADEMY LEADERBOARD</span>
+            <span className="lb-count">{filtered.length}</span>
           </div>
-        ))}
 
-        {filtered.length === 0 && (
-          <div className="lb-empty-msg">No academies in this region yet.</div>
-        )}
-        {!showAll && filtered.length > 10 && (
-          <button className="lb-show-more" onClick={() => setShowAll(true)}>
-            Show all {filtered.length} academies
-          </button>
-        )}
-      </div>
+          {/* Region tabs */}
+          <div className="lb-tabs">
+            <button
+              className={`lb-tab ${activeTab === "all" ? "lb-tab-active" : ""}`}
+              onClick={() => handleTabClick("all")}
+            >All</button>
+            {regions.map((r) => (
+              <button
+                key={r}
+                className={`lb-tab ${activeTab === r ? "lb-tab-active" : ""}`}
+                onClick={() => handleTabClick(r)}
+              >{r}</button>
+            ))}
+          </div>
+        </div>
 
-      {/* Footer */}
-      <div className="lb-foot">
-        <span className="lb-signal" />
-        Ecosystem Live · Hyderabad
+        {/* Academy list — paginated */}
+        <div className="lb-list">
+          {(showAll ? filtered : filtered.slice(0, 10)).map((a, i) => (
+            <div
+              key={a.id}
+              className={`lb-row ${i === 0 ? "lb-row-top" : ""}`}
+              onClick={() => handleRowClick(a)}
+            >
+              <div className="lb-pos">
+                {i === 0 ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF1744" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                ) : (
+                  <span>{i + 1}</span>
+                )}
+              </div>
+              <div className="lb-detail">
+                <div className="lb-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
+                <div className="lb-meta-row">
+                  <span className={`lb-badge lb-badge-${a.badge || "verified"}`}>{BADGE_SHORT[a.badge] || "VERIFIED"}</span>
+                  <span className="lb-sport">{a.sport}</span>
+                  {a.area && <span className="lb-area-tag">{a.area}</span>}
+                </div>
+              </div>
+              <div className="lb-score">
+                <div className="lb-score-num">{a.students || 0}</div>
+                <div className="lb-score-bar">
+                  <div className="lb-score-fill" style={{ width: `${((a.students || 0) / maxStudents) * 100}%` }} />
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {filtered.length === 0 && (
+            <div className="lb-empty-msg">No academies in this region yet.</div>
+          )}
+          {!showAll && filtered.length > 10 && (
+            <button className="lb-show-more" onClick={() => setShowAll(true)}>
+              Show all {filtered.length} academies
+            </button>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="lb-foot">
+          <span className="lb-signal" />
+          Ecosystem Live · Hyderabad
+        </div>
       </div>
     </div>
   );
@@ -388,6 +390,7 @@ export default function Home() {
 
   return (
     <>
+      <div className="noise-overlay" />
       <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
         <a href="#" className="nav-logo">GWD <span>SPORTS</span></a>
         <div className="nav-links">
@@ -411,24 +414,36 @@ export default function Home() {
             <h1 className="cmd-title">Hyderabad&apos;s<br/>Sports Grid</h1>
             <p className="cmd-sub">Every academy. Every student. One living ecosystem.</p>
             <div className="cmd-ctas">
-              <button className="btn-primary">Join the Ecosystem</button>
-              <button className="btn-secondary">Watch Demo</button>
+              <button className="btn-primary">
+                <span>Join the Ecosystem</span>
+                <span className="btn-arrow">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </span>
+              </button>
+              <button className="btn-secondary">
+                <span>Watch Demo</span>
+                <span className="btn-arrow">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </span>
+              </button>
             </div>
             <div className="cmd-meta">{active.length} academies live &middot; Hyderabad &middot; Est. 2025</div>
           </div>
 
           <div className="hud-strip">
-            <div className="hud-stat">
-              <div className="hud-val">{c1}</div>
-              <div className="hud-lbl">Academies Live</div>
-            </div>
-            <div className="hud-stat">
-              <div className="hud-val">{c2}</div>
-              <div className="hud-lbl">Sports</div>
-            </div>
-            <div className="hud-stat">
-              <div className="hud-val">Hyd</div>
-              <div className="hud-lbl">City</div>
+            <div className="hud-strip-inner">
+              <div className="hud-stat">
+                <div className="hud-val">{c1}</div>
+                <div className="hud-lbl">Academies Live</div>
+              </div>
+              <div className="hud-stat">
+                <div className="hud-val">{c2}</div>
+                <div className="hud-lbl">Sports</div>
+              </div>
+              <div className="hud-stat">
+                <div className="hud-val">Hyd</div>
+                <div className="hud-lbl">City</div>
+              </div>
             </div>
           </div>
 
@@ -467,23 +482,25 @@ export default function Home() {
         <div className="academy-grid">
           {active.map((a, i) => (
             <div className="academy-card" key={a.id || i} style={{ transitionDelay: `${i * 80}ms` }}>
-              <span className="card-badge">{BADGE_LABELS[a.badge] || "GWD VERIFIED"}</span>
-              <div className="card-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
-              <div className="card-sport">{a.sport}{a.area ? ` · ${a.area}` : ""}</div>
-              <div className="card-divider" />
-              <div className="card-stats">
-                <span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>
-                  {a.students} students
-                </span>
-                <span>{a.city}</span>
+              <div className="academy-card-inner">
+                <span className="card-badge">{BADGE_LABELS[a.badge] || "GWD VERIFIED"}</span>
+                <div className="card-name">{a.name} {isMastergrade(a.name) && <FoundingTag />}</div>
+                <div className="card-sport">{a.sport}{a.area ? ` · ${a.area}` : ""}</div>
+                <div className="card-divider" />
+                <div className="card-stats">
+                  <span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>
+                    {a.students} students
+                  </span>
+                  <span>{a.city}</span>
+                </div>
+                <div className="card-rating">
+                  <div className="card-rating-label">GWD RATING</div>
+                  <div className="card-stars">{renderStars(a.rating)}</div>
+                  <div className="card-verified">{a.badge === "founding" ? "Verified — Founding Academy" : a.badge === "premium" ? "Premium Partner" : "Verified Academy"}</div>
+                </div>
+                <div className="card-view">View Academy <span>&rarr;</span></div>
               </div>
-              <div className="card-rating">
-                <div className="card-rating-label">GWD RATING</div>
-                <div className="card-stars">{renderStars(a.rating)}</div>
-                <div className="card-verified">{a.badge === "founding" ? "Verified — Founding Academy" : a.badge === "premium" ? "Premium Partner" : "Verified Academy"}</div>
-              </div>
-              <div className="card-view">View Academy <span>&rarr;</span></div>
             </div>
           ))}
         </div>
@@ -519,7 +536,12 @@ export default function Home() {
           <div className="sec-label">JOIN THE FOUNDING BATCH</div>
           <h2 className="cta-headline">Your academy belongs on this map.</h2>
           <p className="cta-sub">We are onboarding founding academies in Hyderabad right now. Limited slots.</p>
-          <button className="cta-btn">Apply for Founding Membership</button>
+          <button className="cta-btn">
+            <span>Apply for Founding Membership</span>
+            <span className="btn-arrow">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </span>
+          </button>
           <p className="cta-note">No setup fee for founding academies &middot; Full platform access &middot; Founding badge</p>
         </div>
       </section>
