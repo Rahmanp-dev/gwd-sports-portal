@@ -16,6 +16,51 @@ const SPORT_DATA = {
 
 const ALL_SPORTS = Object.keys(SPORT_DATA);
 
+/* ── SVG Icons ── */
+const IconPin = () => (
+  <svg className="ap-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "5px", color: "#FF1744" }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+);
+
+const IconCricket = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><path d="M18.5 5.5a2.12 2.12 0 0 1 3 3L8 22H5v-3L18.5 5.5Z" /><path d="m15 9 3 3" /><circle cx="4" cy="4" r="2" /></svg>
+);
+
+const IconFootball = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><circle cx="12" cy="12" r="10" /><path d="m12 2-2 3v3.5l3.5 1.5 2.5-3V5L12 2Z" /><path d="M10 5.5 5 8v4.5l3 1.5 3.5-1.5V9.5L10 5.5Z" /><path d="m16 5.5 5 2.5v4.5l-3.5 1.5-2.5-1.5v-3l1-4Z" /><path d="M8.5 14 5 15.5V19l4.5 3 2.5-3.5-1-3L8.5 14Z" /><path d="M15.5 14l3.5 1.5V19l-4.5 3-2.5-3.5 1-3 2.5-1.5Z" /></svg>
+);
+
+const IconBadminton = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><path d="M12 12V2M8 6h8M6 10h12M12 12a4 4 0 0 0-4 4v4a2 2 0 0 0 4 2h0a2 2 0 0 0 2-2v-4a4 4 0 0 0-4-4Z" /><circle cx="12" cy="6" r="1" /></svg>
+);
+
+const IconTennis = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10" /><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10" /><path d="M2 12h20" /></svg>
+);
+
+const IconSwimming = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><path d="M2 6c3-1.5 5 1.5 8 0s5-1.5 8 0 5 1.5 8 0M2 12c3-1.5 5 1.5 8 0s5-1.5 8 0 5 1.5 8 0M2 18c3-1.5 5 1.5 8 0s5-1.5 8 0 5 1.5 8 0" /></svg>
+);
+
+const IconMMA = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V5a5 5 0 0 1 10 0v5" /><path d="M12 14v4" /></svg>
+);
+
+const IconKabaddi = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+);
+
+const IconSportGeneric = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><circle cx="12" cy="12" r="10" /><path d="M12 2v20M2 12h20" /></svg>
+);
+
+const IconStar = ({ filled }) => (
+  <svg className={`ap-star-icon ${filled ? "" : "empty"}`} viewBox="0 0 24 24" width="13" height="13"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+);
+
+const IconChevron = () => (
+  <svg className="ap-faq-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+);
+
 function getSlug(a) {
   return a.slug || a.id || a.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -41,18 +86,15 @@ export async function generateMetadata({ params }) {
 
 export default async function SportPage({ params }) {
   const { sport } = await params;
-  const data = SPORT_DATA[sport] || { label: sport.charAt(0).toUpperCase() + sport.slice(1), emoji: "🏅", desc: "" };
+  const data = SPORT_DATA[sport] || { label: sport.charAt(0).toUpperCase() + sport.slice(1), emoji: "🏆", desc: "" };
 
   await dbConnect();
-  // Match academies whose sport field contains this sport (handles "Cricket/Football" etc)
   const regex = new RegExp(data.label.split(" ")[0], "i");
   const academies = await Academy.find({ status: "active", sport: regex }).sort({ students: -1 }).lean();
 
-  // Areas with this sport
   const areas = [...new Set(academies.map(a => a.area).filter(Boolean))];
   const totalStudents = academies.reduce((s, a) => s + (a.students || 0), 0);
 
-  // Schema.org
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -91,36 +133,50 @@ export default async function SportPage({ params }) {
     ],
   };
 
+  const sportHeaderIcons = {
+    cricket: <IconCricket />,
+    football: <IconFootball />,
+    badminton: <IconBadminton />,
+    tennis: <IconTennis />,
+    swimming: <IconSwimming />,
+    mma: <IconMMA />,
+    kabaddi: <IconKabaddi />,
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <main className="academy-profile-page">
+      <main className="academy-profile-page ap-fade-in">
         <nav className="ap-nav">
           <Link href="/" className="ap-nav-logo">GWD <span>SPORTS</span></Link>
           <div className="ap-nav-links">
             <Link href="/find-academy">Find Academy</Link>
             {ALL_SPORTS.slice(0, 4).map(s => (
-              <Link key={s} href={`/sport/${s}`} style={s === sport ? { color: "#D97706" } : {}}>{SPORT_DATA[s]?.label || s}</Link>
+              <Link key={s} href={`/sport/${s}`} style={s === sport ? { color: "#FF1744" } : {}}>{SPORT_DATA[s]?.label || s}</Link>
             ))}
           </div>
         </nav>
 
         <div className="ap-breadcrumbs">
-          <Link href="/">Home</Link><span>›</span>
+          <Link href="/">Home</Link>
+          <span className="ap-bc-separator">›</span>
           <span className="ap-bc-current">{data.label} Academies in Hyderabad</span>
         </div>
 
         <section className="ap-hero">
-          <div className="ap-hero-badge">{data.emoji} {data.label.toUpperCase()}</div>
+          <div className="ap-hero-badge">
+            {sportHeaderIcons[sport] || <IconSportGeneric />}
+            <span>{data.label}</span>
+          </div>
           <h1 className="ap-hero-name">Best {data.label} Academies in Hyderabad</h1>
-          <p className="ap-hero-meta">{data.desc}</p>
+          <p className="ap-hero-meta">{data.desc || `Compare fee structures, coordinates, and coaching quality of the top ${data.label.toLowerCase()} training schools.`}</p>
           <div className="ap-hero-stats">
-            <div className="ap-stat"><div className="ap-stat-val">{academies.length}</div><div className="ap-stat-lbl">Academies</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{totalStudents}</div><div className="ap-stat-lbl">Students</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{areas.length}</div><div className="ap-stat-lbl">Areas</div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academies.length}</div><div className="ap-stat-lbl">Academies</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{totalStudents}</div><div className="ap-stat-lbl">Students</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{areas.length}</div><div className="ap-stat-lbl">Areas</div></div></div>
           </div>
         </section>
 
@@ -131,7 +187,11 @@ export default async function SportPage({ params }) {
             <div className="ap-tags">
               {areas.map((area, i) => {
                 const areaSlug = area.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-                return <Link key={i} href={`/area/${areaSlug}`} className="ap-tag" style={{ textDecoration: "none" }}>{area}</Link>;
+                return (
+                  <Link key={i} href={`/area/${areaSlug}`} className="ap-tag" style={{ textDecoration: "none" }}>
+                    <IconPin /> {area}
+                  </Link>
+                );
               })}
             </div>
           </section>
@@ -142,22 +202,28 @@ export default async function SportPage({ params }) {
           <h2 className="ap-sec-title">All {data.label} Academies ({academies.length})</h2>
           <div className="ap-grid-2">
             {academies.map((a, i) => (
-              <Link key={i} href={`/academy/${getSlug(a)}`} className="ap-nearby-card">
-                <div className="ap-nearby-badge">{a.badge === "founding" ? "GWD FOUNDING" : a.badge === "premium" ? "GWD ELITE" : "GWD VERIFIED"}</div>
-                <div className="ap-nearby-name">{a.name}</div>
-                <div className="ap-nearby-meta">
-                  {a.area || "Hyderabad"} · {a.students || 0} students
-                  {a.coach ? ` · Coach: ${a.coach}` : ""}
-                  {a.winRate ? ` · ${a.winRate}% win rate` : ""}
-                </div>
-                <div style={{ fontSize: 14, color: "#D97706", marginTop: 6, letterSpacing: 1 }}>
-                  {"★".repeat(Math.min(a.rating || 1, 5))}{"☆".repeat(5 - Math.min(a.rating || 1, 5))}
+              <Link key={i} href={`/academy/${getSlug(a)}`} className="ap-card-shell">
+                <div className="ap-card-core">
+                  <div className={`ap-nearby-badge ${a.badge === "founding" ? "founding" : ""}`}>
+                    {a.badge === "founding" ? "GWD FOUNDING" : a.badge === "premium" ? "GWD ELITE" : "GWD VERIFIED"}
+                  </div>
+                  <div className="ap-nearby-name" style={{ marginTop: 4 }}>{a.name}</div>
+                  <div className="ap-nearby-meta" style={{ marginTop: 2, flexGrow: 1 }}>
+                    {a.area || "Hyderabad"} · {a.students || 0} students
+                    {a.coach ? ` · Coach: ${a.coach}` : ""}
+                    {a.winRate ? ` · ${a.winRate}% win rate` : ""}
+                  </div>
+                  <div className="ap-hero-rating" style={{ marginTop: 12 }}>
+                    {Array.from({ length: 5 }, (_, idx) => (
+                      <IconStar key={idx} filled={idx < Math.min(a.rating || 1, 5)} />
+                    ))}
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
           {academies.length === 0 && (
-            <p className="ap-sec-text">No {data.label.toLowerCase()} academies listed yet. <Link href="/#join" style={{ color: "#D97706" }}>Register your academy</Link> to be the first.</p>
+            <p className="ap-sec-text">No {data.label.toLowerCase()} academies listed yet. <Link href="/#join" style={{ color: "#FF1744", textDecoration: "underline" }}>Register your academy</Link> to be the first.</p>
           )}
         </section>
 
@@ -166,23 +232,23 @@ export default async function SportPage({ params }) {
           <h2 className="ap-sec-title">Frequently Asked Questions — {data.label} in Hyderabad</h2>
           <div className="ap-faq">
             <details className="ap-faq-item">
-              <summary>How many {data.label.toLowerCase()} academies are in Hyderabad?</summary>
+              <summary>How many {data.label.toLowerCase()} academies are in Hyderabad? <IconChevron /></summary>
               <p>There are {academies.length}+ verified {data.label.toLowerCase()} academies listed on GWD Sports in Hyderabad, with {totalStudents}+ active students across all academies.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>What is the average fee for {data.label.toLowerCase()} coaching in Hyderabad?</summary>
+              <summary>What is the average fee for {data.label.toLowerCase()} coaching in Hyderabad? <IconChevron /></summary>
               <p>{data.label} coaching fees in Hyderabad typically range from ₹1,500 to ₹5,000 per month depending on the academy, batch timings, and coaching level.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Can I book a free trial for {data.label.toLowerCase()} coaching?</summary>
+              <summary>Can I book a free trial for {data.label.toLowerCase()} coaching? <IconChevron /></summary>
               <p>Yes! Most GWD-listed {data.label.toLowerCase()} academies offer free trial sessions. Click &quot;Request Free Trial&quot; on any academy&apos;s profile page.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>What age should my child start {data.label.toLowerCase()} coaching?</summary>
+              <summary>What age should my child start {data.label.toLowerCase()} coaching? <IconChevron /></summary>
               <p>Most {data.label.toLowerCase()} academies in Hyderabad accept children from age 5-6 for beginner programs. Structured competitive coaching typically begins at age 7-8.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Which areas in Hyderabad have the best {data.label.toLowerCase()} academies?</summary>
+              <summary>Which areas in Hyderabad have the best {data.label.toLowerCase()} academies? <IconChevron /></summary>
               <p>{areas.length > 0 ? `Popular areas for ${data.label.toLowerCase()} coaching include ${areas.slice(0, 5).join(", ")}. Browse each area to find academies near you.` : `We're adding ${data.label.toLowerCase()} academies across Hyderabad. Check back soon.`}</p>
             </details>
           </div>
@@ -194,7 +260,7 @@ export default async function SportPage({ params }) {
           <div className="ap-tags">
             {ALL_SPORTS.filter(s => s !== sport).map(s => (
               <Link key={s} href={`/sport/${s}`} className="ap-tag" style={{ textDecoration: "none" }}>
-                {SPORT_DATA[s]?.emoji} {SPORT_DATA[s]?.label || s}
+                <span>{SPORT_DATA[s]?.label || s}</span>
               </Link>
             ))}
           </div>
@@ -203,7 +269,10 @@ export default async function SportPage({ params }) {
         <section className="ap-bottom-cta">
           <h2>List Your {data.label} Academy on GWD</h2>
           <p>Get verified, appear in parent searches, receive trial requests. Join Hyderabad&apos;s sports ecosystem.</p>
-          <Link href="/#join" className="ap-cta-btn ap-cta-primary">Join GWD Sports →</Link>
+          <Link href="/#join" className="ap-cta-btn ap-cta-primary">
+            Join GWD Sports
+            <span className="ap-btn-icon-wrap">→</span>
+          </Link>
         </section>
 
         <footer className="ap-footer">

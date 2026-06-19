@@ -22,6 +22,23 @@ const AREA_DATA = {
 
 const ALL_AREAS = Object.keys(AREA_DATA);
 
+/* ── SVG Icons ── */
+const IconPin = () => (
+  <svg className="ap-pin-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "6px", color: "#FF1744" }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+);
+
+const IconPinHeader = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-3px", marginRight: "8px", color: "#FF1744" }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+);
+
+const IconStar = ({ filled }) => (
+  <svg className={`ap-star-icon ${filled ? "" : "empty"}`} viewBox="0 0 24 24" width="13" height="13"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+);
+
+const IconChevron = () => (
+  <svg className="ap-faq-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+);
+
 function getSlug(a) {
   return a.slug || a.id || a.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -50,14 +67,12 @@ export default async function AreaPage({ params }) {
   const data = AREA_DATA[area] || { label: area.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()) };
 
   await dbConnect();
-  // Match academies in this area (fuzzy match)
   const regex = new RegExp(data.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
   const academies = await Academy.find({ status: "active", area: regex }).sort({ students: -1 }).lean();
 
   const sports = [...new Set(academies.map(a => a.sport).filter(Boolean))];
   const totalStudents = academies.reduce((s, a) => s + (a.students || 0), 0);
 
-  // Schema
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -101,7 +116,7 @@ export default async function AreaPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <main className="academy-profile-page">
+      <main className="academy-profile-page ap-fade-in">
         <nav className="ap-nav">
           <Link href="/" className="ap-nav-logo">GWD <span>SPORTS</span></Link>
           <div className="ap-nav-links">
@@ -113,18 +128,22 @@ export default async function AreaPage({ params }) {
         </nav>
 
         <div className="ap-breadcrumbs">
-          <Link href="/">Home</Link><span>›</span>
+          <Link href="/">Home</Link>
+          <span className="ap-bc-separator">›</span>
           <span className="ap-bc-current">Sports Academies in {data.label}</span>
         </div>
 
         <section className="ap-hero">
-          <div className="ap-hero-badge">📍 {data.label.toUpperCase()}, HYDERABAD</div>
+          <div className="ap-hero-badge">
+            <IconPinHeader />
+            <span>{data.label}, Hyderabad</span>
+          </div>
           <h1 className="ap-hero-name">Best Sports Academies in {data.label}, Hyderabad</h1>
           <p className="ap-hero-meta">Find and compare verified sports academies in {data.label}. Cricket, football, badminton, tennis — all in one place. Book free trials instantly.</p>
           <div className="ap-hero-stats">
-            <div className="ap-stat"><div className="ap-stat-val">{academies.length}</div><div className="ap-stat-lbl">Academies</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{totalStudents}</div><div className="ap-stat-lbl">Students</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{sports.length}</div><div className="ap-stat-lbl">Sports</div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academies.length}</div><div className="ap-stat-lbl">Academies</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{totalStudents}</div><div className="ap-stat-lbl">Students</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{sports.length}</div><div className="ap-stat-lbl">Sports</div></div></div>
           </div>
         </section>
 
@@ -135,7 +154,11 @@ export default async function AreaPage({ params }) {
             <div className="ap-tags">
               {sports.map((sport, i) => {
                 const sportSlug = sport.toLowerCase().split("/")[0].trim();
-                return <Link key={i} href={`/sport/${sportSlug}`} className="ap-tag" style={{ textDecoration: "none" }}>{sport}</Link>;
+                return (
+                  <Link key={i} href={`/sport/${sportSlug}`} className="ap-tag" style={{ textDecoration: "none" }}>
+                    {sport}
+                  </Link>
+                );
               })}
             </div>
           </section>
@@ -146,21 +169,27 @@ export default async function AreaPage({ params }) {
           <h2 className="ap-sec-title">All Academies in {data.label} ({academies.length})</h2>
           <div className="ap-grid-2">
             {academies.map((a, i) => (
-              <Link key={i} href={`/academy/${getSlug(a)}`} className="ap-nearby-card">
-                <div className="ap-nearby-badge">{a.badge === "founding" ? "GWD FOUNDING" : a.badge === "premium" ? "GWD ELITE" : "GWD VERIFIED"}</div>
-                <div className="ap-nearby-name">{a.name}</div>
-                <div className="ap-nearby-meta">
-                  {a.sport} · {a.students || 0} students
-                  {a.coach ? ` · Coach: ${a.coach}` : ""}
-                </div>
-                <div style={{ fontSize: 14, color: "#D97706", marginTop: 6, letterSpacing: 1 }}>
-                  {"★".repeat(Math.min(a.rating || 1, 5))}{"☆".repeat(5 - Math.min(a.rating || 1, 5))}
+              <Link key={i} href={`/academy/${getSlug(a)}`} className="ap-card-shell">
+                <div className="ap-card-core">
+                  <div className={`ap-nearby-badge ${a.badge === "founding" ? "founding" : ""}`}>
+                    {a.badge === "founding" ? "GWD FOUNDING" : a.badge === "premium" ? "GWD ELITE" : "GWD VERIFIED"}
+                  </div>
+                  <div className="ap-nearby-name" style={{ marginTop: 4 }}>{a.name}</div>
+                  <div className="ap-nearby-meta" style={{ marginTop: 2, flexGrow: 1 }}>
+                    {a.sport} · {a.students || 0} students
+                    {a.coach ? ` · Coach: ${a.coach}` : ""}
+                  </div>
+                  <div className="ap-hero-rating" style={{ marginTop: 12 }}>
+                    {Array.from({ length: 5 }, (_, idx) => (
+                      <IconStar key={idx} filled={idx < Math.min(a.rating || 1, 5)} />
+                    ))}
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
           {academies.length === 0 && (
-            <p className="ap-sec-text">No academies in {data.label} yet. <Link href="/#join" style={{ color: "#D97706" }}>Register your academy</Link> to be the first in this area.</p>
+            <p className="ap-sec-text">No academies in {data.label} yet. <Link href="/#join" style={{ color: "#FF1744", textDecoration: "underline" }}>Register your academy</Link> to be the first in this area.</p>
           )}
         </section>
 
@@ -169,19 +198,19 @@ export default async function AreaPage({ params }) {
           <h2 className="ap-sec-title">Frequently Asked Questions — Sports in {data.label}</h2>
           <div className="ap-faq">
             <details className="ap-faq-item">
-              <summary>How many sports academies are in {data.label}?</summary>
+              <summary>How many sports academies are in {data.label}? <IconChevron /></summary>
               <p>There are {academies.length}+ verified sports academies in {data.label}, Hyderabad listed on GWD Sports. {sports.length > 0 ? `Sports available: ${sports.join(", ")}.` : ""}</p>
             </details>
             <details className="ap-faq-item">
-              <summary>What sports can I learn in {data.label}?</summary>
+              <summary>What sports can I learn in {data.label}? <IconChevron /></summary>
               <p>In {data.label}, you can find coaching for {sports.length > 0 ? sports.join(", ") : "cricket, football, badminton, and more"}. Browse individual academies for schedules and fees.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Which is the best sports academy in {data.label}?</summary>
+              <summary>Which is the best sports academy in {data.label}? <IconChevron /></summary>
               <p>The best academy depends on your sport, budget, and schedule. Browse all {academies.length} verified academies in {data.label} on GWD Sports to compare ratings and facilities.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Can I book a free trial at academies in {data.label}?</summary>
+              <summary>Can I book a free trial at academies in {data.label}? <IconChevron /></summary>
               <p>Yes! Most GWD-listed academies offer free trial sessions. Click &quot;Request Free Trial&quot; on any academy&apos;s profile page to send a request directly via WhatsApp.</p>
             </details>
           </div>
@@ -193,7 +222,7 @@ export default async function AreaPage({ params }) {
           <div className="ap-tags">
             {ALL_AREAS.filter(a => a !== area).slice(0, 10).map(a => (
               <Link key={a} href={`/area/${a}`} className="ap-tag" style={{ textDecoration: "none" }}>
-                📍 {AREA_DATA[a]?.label || a}
+                <IconPin /> {AREA_DATA[a]?.label || a}
               </Link>
             ))}
           </div>
@@ -202,7 +231,10 @@ export default async function AreaPage({ params }) {
         <section className="ap-bottom-cta">
           <h2>List Your Academy in {data.label}</h2>
           <p>Get verified, appear in parent searches for {data.label}, receive trial requests. Join Hyderabad&apos;s sports ecosystem.</p>
-          <Link href="/#join" className="ap-cta-btn ap-cta-primary">Join GWD Sports →</Link>
+          <Link href="/#join" className="ap-cta-btn ap-cta-primary">
+            Join GWD Sports
+            <span className="ap-btn-icon-wrap">→</span>
+          </Link>
         </section>
 
         <footer className="ap-footer">

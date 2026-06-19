@@ -5,6 +5,43 @@ import Link from "next/link";
 const BASE_URL = "https://sports.gwdglobal.in";
 const BADGE_LABELS = { founding: "GWD FOUNDING MEMBER", verified: "GWD VERIFIED", premium: "GWD ELITE", listed: "LISTED" };
 
+/* ── SVG Icons ── */
+const IconPin = () => (
+  <svg className="ap-pin-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "6px", color: "#FF1744" }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+);
+
+const IconTiming = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "6px", color: "#FF1744" }}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+);
+
+const IconFee = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "6px", color: "#FF1744" }}><rect x="2" y="4" width="20" height="16" rx="2" /><line x1="12" y1="10" x2="12" y2="14" /><path d="M10 10h4" /></svg>
+);
+
+const IconEstablished = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "-2px", marginRight: "6px", color: "#FF1744" }}><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+);
+
+const IconStar = ({ filled }) => (
+  <svg className={`ap-star-icon ${filled ? "" : "empty"}`} viewBox="0 0 24 24" width="13" height="13"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+);
+
+const IconChevron = () => (
+  <svg className="ap-faq-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+);
+
+const IconWhatsApp = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.739-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.488 2.01 14.039.989 11.417.989 5.981.989 1.56 5.358 1.556 10.787c-.001 1.637.432 3.237 1.256 4.664l-.992 3.613 3.731-.973c1.374.75 2.923 1.144 4.542 1.144-.002.001-.002.001 0 0z" /></svg>
+);
+
+const IconPhone = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+);
+
+const IconDirection = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
+);
+
 function getSlug(a) {
   return a.slug || a.id || a.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -59,11 +96,11 @@ export default async function AcademyPage({ params }) {
 
   if (!academy) {
     return (
-      <main style={{ background: "#0a0a0a", color: "#ccc", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter',sans-serif" }}>
+      <main style={{ background: "#050508", color: "#a1a1aa", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "system-ui,sans-serif" }}>
         <div style={{ textAlign: "center" }}>
           <h1 style={{ fontSize: 28, color: "#fff", marginBottom: 8 }}>Academy Not Found</h1>
           <p style={{ color: "#666" }}>This academy doesn't exist or has been removed.</p>
-          <Link href="/" style={{ color: "#D97706", marginTop: 16, display: "inline-block" }}>← Back to GWD Sports</Link>
+          <Link href="/" style={{ color: "#FF1744", marginTop: 16, display: "inline-block", textDecoration: "underline" }}>← Back to GWD Sports</Link>
         </div>
       </main>
     );
@@ -155,7 +192,7 @@ export default async function AcademyPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <main className="academy-profile-page">
+      <main className="academy-profile-page ap-fade-in">
         {/* Nav */}
         <nav className="ap-nav">
           <Link href="/" className="ap-nav-logo">GWD <span>SPORTS</span></Link>
@@ -169,27 +206,31 @@ export default async function AcademyPage({ params }) {
         {/* Breadcrumbs */}
         <div className="ap-breadcrumbs">
           <Link href="/">Home</Link>
-          <span>›</span>
-          {sportSlug && <><Link href={`/sport/${sportSlug}`}>{sport} Academies</Link><span>›</span></>}
-          {areaSlug && <><Link href={`/area/${areaSlug}`}>{area}</Link><span>›</span></>}
+          <span className="ap-bc-separator">›</span>
+          {sportSlug && <><Link href={`/sport/${sportSlug}`}>{sport} Academies</Link><span className="ap-bc-separator">›</span></>}
+          {areaSlug && <><Link href={`/area/${areaSlug}`}>{area}</Link><span className="ap-bc-separator">›</span></>}
           <span className="ap-bc-current">{academy.name}</span>
         </div>
 
         {/* Hero */}
         <section className="ap-hero">
-          <div className="ap-hero-badge">{BADGE_LABELS[academy.badge] || "GWD VERIFIED"}</div>
+          <div className={`ap-hero-badge ${academy.badge === "founding" ? "founding" : ""}`}>
+            {BADGE_LABELS[academy.badge] || "GWD VERIFIED"}
+          </div>
           <h1 className="ap-hero-name">{academy.name}</h1>
           <p className="ap-hero-meta">
             {sport} · {area || "Hyderabad"}{academy.founded ? ` · Est. ${academy.founded}` : ""}
           </p>
           <div className="ap-hero-stats">
-            <div className="ap-stat"><div className="ap-stat-val">{academy.students || 0}</div><div className="ap-stat-lbl">Students</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{academy.matchesPlayed || 0}</div><div className="ap-stat-lbl">Matches</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{academy.winRate || 0}%</div><div className="ap-stat-lbl">Win Rate</div></div>
-            <div className="ap-stat"><div className="ap-stat-val">{academy.trophies || 0}</div><div className="ap-stat-lbl">Trophies</div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academy.students || 0}</div><div className="ap-stat-lbl">Students</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academy.matchesPlayed || 0}</div><div className="ap-stat-lbl">Matches</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academy.winRate || 0}%</div><div className="ap-stat-lbl">Win Rate</div></div></div>
+            <div className="ap-stat-shell"><div className="ap-stat-core"><div className="ap-stat-val">{academy.trophies || 0}</div><div className="ap-stat-lbl">Trophies</div></div></div>
           </div>
           <div className="ap-hero-rating">
-            {"★".repeat(Math.min(academy.rating || 1, 5))}{"☆".repeat(5 - Math.min(academy.rating || 1, 5))}
+            {Array.from({ length: 5 }, (_, idx) => (
+              <IconStar key={idx} filled={idx < Math.min(academy.rating || 1, 5)} />
+            ))}
             <span className="ap-rating-text">GWD Rating</span>
           </div>
         </section>
@@ -197,16 +238,22 @@ export default async function AcademyPage({ params }) {
         {/* CTA */}
         <section className="ap-cta-bar">
           <a href={`https://wa.me/${(academy.phone || "").replace(/[^0-9]/g, "")}`} className="ap-cta-btn ap-cta-primary" target="_blank" rel="noopener noreferrer">
-            📱 Request Free Trial
+            <IconWhatsApp />
+            <span>Request Free Trial</span>
+            <span className="ap-btn-icon-wrap">→</span>
           </a>
           {academy.phone && (
             <a href={`tel:${academy.phone}`} className="ap-cta-btn ap-cta-secondary">
-              📞 Call Academy
+              <IconPhone />
+              <span>Call Academy</span>
+              <span className="ap-btn-icon-wrap">→</span>
             </a>
           )}
           {academy.googleMapsUrl && (
             <a href={academy.googleMapsUrl} className="ap-cta-btn ap-cta-secondary" target="_blank" rel="noopener noreferrer">
-              📍 Get Directions
+              <IconDirection />
+              <span>Get Directions</span>
+              <span className="ap-btn-icon-wrap">→</span>
             </a>
           )}
         </section>
@@ -224,9 +271,24 @@ export default async function AcademyPage({ params }) {
             </div>
           )}
           <div className="ap-info-grid">
-            {academy.timing && <div className="ap-info-card"><div className="ap-info-label">Timings</div><div className="ap-info-value">{academy.timing}</div></div>}
-            {academy.feeRange && <div className="ap-info-card"><div className="ap-info-label">Fee Range</div><div className="ap-info-value">{academy.feeRange}</div></div>}
-            {academy.founded && <div className="ap-info-card"><div className="ap-info-label">Established</div><div className="ap-info-value">{academy.founded}</div></div>}
+            {academy.timing && (
+              <div className="ap-info-card">
+                <div className="ap-info-label"><IconTiming /> Timings</div>
+                <div className="ap-info-value">{academy.timing}</div>
+              </div>
+            )}
+            {academy.feeRange && (
+              <div className="ap-info-card">
+                <div className="ap-info-label"><IconFee /> Fee Range</div>
+                <div className="ap-info-value">{academy.feeRange}</div>
+              </div>
+            )}
+            {academy.founded && (
+              <div className="ap-info-card">
+                <div className="ap-info-label"><IconEstablished /> Established</div>
+                <div className="ap-info-value">{academy.founded}</div>
+              </div>
+            )}
           </div>
           {academy.facilities?.length > 0 && (
             <>
@@ -248,10 +310,14 @@ export default async function AcademyPage({ params }) {
             <h2 className="ap-sec-title">Star Players</h2>
             <div className="ap-grid-3">
               {academy.starPlayers.map((p, i) => (
-                <div key={i} className="ap-player-card">
-                  <div className="ap-player-name">{p.name}</div>
-                  <div className="ap-player-achievement">{p.achievement}</div>
-                  <div className="ap-player-level">{(p.level || "district").toUpperCase()}</div>
+                <div key={i} className="ap-card-shell">
+                  <div className="ap-card-core ap-player-card">
+                    <div className="ap-player-name">{p.name}</div>
+                    <div className="ap-player-achievement" style={{ flexGrow: 1 }}>{p.achievement}</div>
+                    <div style={{ marginTop: 10 }}>
+                      <div className="ap-player-level">{(p.level || "district")}</div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -264,10 +330,12 @@ export default async function AcademyPage({ params }) {
             <h2 className="ap-sec-title">Teams</h2>
             <div className="ap-grid-2">
               {academy.teams.map((t, i) => (
-                <div key={i} className="ap-team-card">
-                  <div className="ap-team-name">{t.name}</div>
-                  <div className="ap-team-meta">{t.sport} · {t.division}</div>
-                  <div className="ap-team-record">{t.wins}W - {t.losses}L</div>
+                <div key={i} className="ap-card-shell">
+                  <div className="ap-card-core ap-team-card">
+                    <div className="ap-team-name">{t.name}</div>
+                    <div className="ap-team-meta">{t.sport} · {t.division}</div>
+                    <div className="ap-team-record">{t.wins}W - {t.losses}L</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -279,24 +347,24 @@ export default async function AcademyPage({ params }) {
           <h2 className="ap-sec-title">Frequently Asked Questions</h2>
           <div className="ap-faq">
             <details className="ap-faq-item">
-              <summary>What sports does {academy.name} offer?</summary>
+              <summary>What sports does {academy.name} offer? <IconChevron /></summary>
               <p>{academy.name} offers professional coaching in {sport}. {academy.ageGroups?.length ? `Available age groups: ${academy.ageGroups.join(", ")}.` : "Contact the academy for age group details."}</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Where is {academy.name} located?</summary>
+              <summary>Where is {academy.name} located? <IconChevron /></summary>
               <p>{academy.name} is located in {area || "Hyderabad"}, Telangana, India. {academy.googleMapsUrl ? "Click 'Get Directions' above for navigation." : ""}</p>
             </details>
             <details className="ap-faq-item">
-              <summary>How many students are enrolled at {academy.name}?</summary>
+              <summary>How many students are enrolled at {academy.name}? <IconChevron /></summary>
               <p>{academy.name} currently has {academy.students || 0} active students enrolled in their {sport.toLowerCase()} program.</p>
             </details>
             <details className="ap-faq-item">
-              <summary>Can I book a free trial at {academy.name}?</summary>
+              <summary>Can I book a free trial at {academy.name}? <IconChevron /></summary>
               <p>Yes! You can request a free trial at {academy.name} through GWD Sports. Click the &quot;Request Free Trial&quot; button above to send a trial request via WhatsApp.</p>
             </details>
             {academy.feeRange && (
               <details className="ap-faq-item">
-                <summary>What are the fees at {academy.name}?</summary>
+                <summary>What are the fees at {academy.name}? <IconChevron /></summary>
                 <p>Fees at {academy.name} range from {academy.feeRange}. Contact the academy for exact pricing for your preferred batch and age group.</p>
               </details>
             )}
@@ -309,10 +377,19 @@ export default async function AcademyPage({ params }) {
             <h2 className="ap-sec-title">Other Academies {area ? `in ${area}` : "Nearby"}</h2>
             <div className="ap-grid-2">
               {nearby.map((n, i) => (
-                <Link key={i} href={`/academy/${getSlug(n)}`} className="ap-nearby-card">
-                  <div className="ap-nearby-badge">{BADGE_LABELS[n.badge] || "VERIFIED"}</div>
-                  <div className="ap-nearby-name">{n.name}</div>
-                  <div className="ap-nearby-meta">{getSportLabel(n.sport)} · {n.area || "Hyderabad"} · {n.students || 0} students</div>
+                <Link key={i} href={`/academy/${getSlug(n)}`} className="ap-card-shell">
+                  <div className="ap-card-core ap-nearby-card">
+                    <div className={`ap-nearby-badge ${n.badge === "founding" ? "founding" : ""}`}>
+                      {BADGE_LABELS[n.badge] || "VERIFIED"}
+                    </div>
+                    <div className="ap-nearby-name" style={{ marginTop: 4 }}>{n.name}</div>
+                    <div className="ap-nearby-meta" style={{ marginTop: 2, flexGrow: 1 }}>{getSportLabel(n.sport)} · {n.area || "Hyderabad"} · {n.students || 0} students</div>
+                    <div className="ap-hero-rating" style={{ marginTop: 12 }}>
+                      {Array.from({ length: 5 }, (_, idx) => (
+                        <IconStar key={idx} filled={idx < Math.min(n.rating || 1, 5)} />
+                      ))}
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -323,7 +400,10 @@ export default async function AcademyPage({ params }) {
         <section className="ap-bottom-cta">
           <h2>Your Academy Should Be Here</h2>
           <p>Join {academy.students || 0}+ student athletes on GWD Sports. Get verified, get discovered by parents, get more students.</p>
-          <Link href="/#join" className="ap-cta-btn ap-cta-primary">Join GWD Sports →</Link>
+          <Link href="/#join" className="ap-cta-btn ap-cta-primary">
+            Join GWD Sports
+            <span className="ap-btn-icon-wrap">→</span>
+          </Link>
         </section>
 
         {/* Footer */}
